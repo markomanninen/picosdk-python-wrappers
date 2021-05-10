@@ -172,7 +172,7 @@ while status["getTimebase2"] == ps.PICO_STATUS['PICO_INVALID_TIMEBASE']:
 
 assert_pico_ok(status["getTimebase2"])
 
-print "Starting data collection - waiting for trigger on channel D0..."
+print("Starting data collection - waiting for trigger on channel D0...")
 
 # Run block capture
 # handle = chandle
@@ -275,7 +275,7 @@ status["getValues"] = ps.ps2000aGetValues(chandle,
                                           ctypes.byref(overflow))
 assert_pico_ok(status["getValues"])
 
-print "Data collection complete."
+print("Data collection complete.")
 
 # Find maximum ADC count value
 # handle = chandle
@@ -297,7 +297,7 @@ time = np.linspace(0, cTotalSamples.value * timeIntervalNs.value, cTotalSamples.
 
 # Plot data from channels A, B and D0
 
-print "Plotting data..."
+print("Plotting data...")
 
 fig, axs = plt.subplots(2, 1, constrained_layout=True)
 axs[0].plot(time, adc2mVChA[:], time, adc2mVChB[:])
@@ -315,7 +315,7 @@ axs[1].legend(loc="upper right")
 fig.canvas.set_window_title('PicoScope 2000 Series (A API) MSO Block Capture Example')
 plt.show()
 
-print "Close figure to stop the device and close the connection."
+print("Close figure to stop the device and close the connection.")
 
 # Stop the scope
 # handle = chandle
