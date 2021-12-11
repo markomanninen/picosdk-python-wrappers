@@ -139,7 +139,7 @@ bufferAMin = (ctypes.c_int16 * maxsamples)() # used for downsampling which isn't
 
 # Setting the data buffer location for data collection from channel A
 # Handle = Chandle
-# source = ps3000A_channel_A = 0
+# source = ps3000A_CHANNEL_A = 0
 # Buffer max = ctypes.byref(bufferAMax)
 # Buffer min = ctypes.byref(bufferAMin)
 # Buffer length = maxsamples
@@ -194,4 +194,3 @@ assert_pico_ok(status["close"])
 
 # Displays the staus returns
 print(status)
-

@@ -21,7 +21,7 @@ status["openunit"] = ps.ps2000aOpenUnit(ctypes.byref(chandle), None)
 assert_pico_ok(status["openunit"])
 
 # Set up channel A
-# handle = chandle
+# Handle = chandle
 # channel = PS2000A_CHANNEL_A = 0
 # enabled = 1
 # coupling type = PS2000A_DC = 1
@@ -32,7 +32,7 @@ status["setChA"] = ps.ps2000aSetChannel(chandle, 0, 1, 1, chARange, 0)
 assert_pico_ok(status["setChA"])
 
 # Set up channel B
-# handle = chandle
+# Handle = chandle
 # channel = PS2000A_CHANNEL_B = 1
 # enabled = 1
 # coupling type = PS2000A_DC = 1
@@ -43,9 +43,9 @@ status["setChB"] = ps.ps2000aSetChannel(chandle, 1, 1, 1, chBRange, 0)
 assert_pico_ok(status["setChB"])
 
 # Set up single trigger
-# handle = chandle
+# Handle = chandle
 # enabled = 1
-# source = PS2000A_CHANNEL_A = 0
+# Source = ps2000a_CHANNEL_A = 0
 # threshold = 1024 ADC counts
 # direction = PS2000A_RISING = 2
 # delay = 0 s
@@ -59,7 +59,7 @@ postTriggerSamples = 2500
 totalSamples = preTriggerSamples + postTriggerSamples
 
 # Get timebase information
-# handle = chandle
+# Handle = chandle
 # timebase = 8 = timebase
 # noSamples = totalSamples
 # pointer to timeIntervalNanoseconds = ctypes.byref(timeIntervalNs)
@@ -79,7 +79,7 @@ status["getTimebase2"] = ps.ps2000aGetTimebase2(chandle,
 assert_pico_ok(status["getTimebase2"])
 
 # Run block capture
-# handle = chandle
+# Handle = chandle
 # number of pre-trigger samples = preTriggerSamples
 # number of post-trigger samples = PostTriggerSamples
 # timebase = 8 = 80 ns = timebase (see Programmer's guide for mre information on timebases)
@@ -112,8 +112,8 @@ bufferBMax = (ctypes.c_int16 * totalSamples)()
 bufferBMin = (ctypes.c_int16 * totalSamples)() # used for downsampling which isn't in the scope of this example
 
 # Set data buffer location for data collection from channel A
-# handle = chandle
-# source = PS2000A_CHANNEL_A = 0
+# Handle = chandle
+# Source = ps2000a_CHANNEL_A = 0
 # pointer to buffer max = ctypes.byref(bufferDPort0Max)
 # pointer to buffer min = ctypes.byref(bufferDPort0Min)
 # buffer length = totalSamples
@@ -129,8 +129,8 @@ status["setDataBuffersA"] = ps.ps2000aSetDataBuffers(chandle,
 assert_pico_ok(status["setDataBuffersA"])
 
 # Set data buffer location for data collection from channel B
-# handle = chandle
-# source = PS2000A_CHANNEL_B = 1
+# Handle = chandle
+# Source = ps2000a_CHANNEL_B = 1
 # pointer to buffer max = ctypes.byref(bufferBMax)
 # pointer to buffer min = ctypes.byref(bufferBMin)
 # buffer length = totalSamples
@@ -151,18 +151,19 @@ overflow = ctypes.c_int16()
 cTotalSamples = ctypes.c_int32(totalSamples)
 
 # Retried data from scope to buffers assigned above
-# handle = chandle
+# Handle = chandle
 # start index = 0
 # pointer to number of samples = ctypes.byref(cTotalSamples)
 # downsample ratio = 0
 # downsample ratio mode = PS2000A_RATIO_MODE_NONE
+# segment_index = 0
 # pointer to overflow = ctypes.byref(overflow))
 status["getValues"] = ps.ps2000aGetValues(chandle, 0, ctypes.byref(cTotalSamples), 0, 0, 0, ctypes.byref(overflow))
 assert_pico_ok(status["getValues"])
 
 
 # find maximum ADC count value
-# handle = chandle
+# Handle = chandle
 # pointer to value = ctypes.byref(maxADC)
 maxADC = ctypes.c_int16()
 status["maximumValue"] = ps.ps2000aMaximumValue(chandle, ctypes.byref(maxADC))
@@ -183,12 +184,12 @@ plt.ylabel('Voltage (mV)')
 plt.show()
 
 # Stop the scope
-# handle = chandle
+# Handle = chandle
 status["stop"] = ps.ps2000aStop(chandle)
 assert_pico_ok(status["stop"])
 
 # Close unitDisconnect the scope
-# handle = chandle
+# Handle = chandle
 status["close"] = ps.ps2000aCloseUnit(chandle)
 assert_pico_ok(status["close"])
 
